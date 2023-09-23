@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" style="--vh: 7.92px; --vw: 15.19px;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dRizz.ly | The Drowsiness Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='style/index.css') }}">
+    <link rel="icon" href="{{ url_for('static',filename='assets/bigger_drizzly.png') }}">
+</head>
+<body draggable="false">
+    <div id="menu">
+        <h3 style="color:#000">Menu</h3>
+        <ul> 
+            <input type="file" name="" id='sleep-file' hidden>
+            <input type="file" name="" id='tired-file' hidden>
+            <li style="color:#000; padding:0.5em" id="sleep-ring" onclick="open_sleep()">Select Sleep Ringtone</a></li>
+            <li style="color:#000; padding:0.5em" id="tired-ring" onclick="open_tired()">Select Tired Ringtone</a></li>
+          </ul>
+    </div>
+    <div id="body-wrapper">
+        <main id="main">
+            <div id="home">
+                <section id="jumbo-section">
+                    <div id="jumbo">
+                        <div class="row">
+                            <div class="column" id="jumbo-col-left">
+                                <div id="jumbo-txt">
+                                    <h1>dRizz.ly</h1>
+                                </div>
+                            </div>
+                            <div class="column" id="jumbo-col-right">
+                                <div id="right-up">
+                                    <span class="time" data-timezone="Western Indonesian Time">
+                                        <span class="time_hour">10</span>
+                                        <span class="blink">:</span>
+                                        <span class="time_minute">20</span>
+                                        <span class="blink">:</span>
+                                        <span class="time_seconds">30</span>
+                                        WIB
+                                    </span>
+                                </div>
+                                <div id="right-bottom">
+                                    <h1 style="font-family: Playfair Display, Times New Roman, serif;">Stay Rizzing my Guy</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="camera">
+                        <div class="row">
+                            <div class="column-small">
+                                <div id="jumbo-video">
+                                    <div class="camera-wrapper" id="camera-wrapper">
+                                        <img src="{{url_for('video')}}">
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="content-section">
+                    <div id="column">
+                        <div class="in_column" id="in_column1">
+                            <div class="inc_wrapper">
+                                <img src="/static/assets/drizzly.png" style="height:35px"></img>
+                            </div>
+                        </div>
+                        <span class="in_column_line"></span>
+                        <div class="in_column" id="in_column2">
+                            <div class="inc_wrapper">
+                                <h2 style="font-family: Playfair Display, Times New Roman, serif; font-size:2em">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
+                                <p>Sed iaculis sagittis risus, id imperdiet eros tristique quis. Sed ligula elit, finibus vel nulla quis, sagittis interdum diam. </p>
+                            </div>
+                        </div>
+                        <span class="in_column_line"></span>
+                        <div class="in_column" id="in_column3">
+                            <div class="inc_wrapper">
+                                <h2 style="font-family: Playfair Display, Times New Roman, serif; font-size:2em">What's dRizz.ly</h2>
+                                <p>Sebuah AI yang berfungsi untuk mendeteksi kantuk pada pengemudi mobil yang bertujuan untuk mengurangi tingkat kecelakaan akibat microsleep.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+        <footer id="footer">
+            <div id="footer-wrapper">
+                <h3>©2023 Mscu.Co</h3>
+                <h3>@em.scu</h3>
+                <h3>@lai.diandra</h3>
+                <h3>@abraham_m30</h3>
+            </div>
+        </footer>
+    </div>
+</body>
+<script src="{{ url_for('static',filename='script/index.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+    $(window).scroll(function(){
+        $('#jumbo').css("opacity", 1 - $(window).scrollTop()/300)
+    });
+    
+    $(document).on("scroll", function() {
+        var pageTop = $(document).scrollTop();
+        var pageBottom = pageTop + $(window).height();
+        var objects = $(".inc_wrapper");
+      
+        for (var i = 0; i < objects.length; i++) {
+          var obj = objects[i];
+      
+          if ($(obj).position().top < pageBottom) {
+            $(obj).addClass("visible");
+          } else {
+            $(obj).removeClass("visible");
+          }
+        }
+      });
+    
+    $("#menu").on("click", function(e){
+      e.preventDefault();
+      
+        if($(this).hasClass("open")) {
+            $(this).removeClass("open");
+            $(this).children("ul").slideUp("fast");
+        } else {
+            $(this).addClass("open");
+            $(this).children("ul").slideDown("fast");
+        }
+    });
+</script>
+</html>
