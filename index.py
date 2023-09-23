@@ -316,7 +316,7 @@ class DrowsinessDetectionApp:
         cv.destroyAllWindows()
 
 app = Flask(__name__)
-camera=cv2.VideoCapture(0)
+camera=cv.VideoCapture(0)
 
 def generate_frames():
     while True:
@@ -324,7 +324,7 @@ def generate_frames():
         if not success:
             break
         else:
-            ret,buffer=cv2.imencode('.jpg', frame)
+            ret,buffer=cv.imencode('.jpg', frame)
             frame=buffer.tobytes()
         
         yield(b'--frame\r\n'
