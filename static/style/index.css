@@ -173,7 +173,7 @@ video{
 .camera-wrapper img{
     border-radius: 15px;
     width: 100%;
-    height: 100vh;
+    height: 100%;
 }
 
 #jumbo-video{
