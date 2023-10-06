@@ -52,7 +52,7 @@
 #menu.open{
     background-color: #DCE7EA;
     box-shadow: 0 0 0.5em 0.1em #DCE7EA;
-    border-radius: 0 0 0 2%;
+    border-radius: 10px 10px 0 0;
 }
 
 #menu ul { 
