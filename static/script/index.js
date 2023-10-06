@@ -133,13 +133,3 @@ setInterval(function(){
     time_minute.textContent = format_minute(now);
     time_seconds.textContent = format_second(now);
 }, 200);
-
-
-//open file
-function open_sleep() {
-  document.getElementById('sleep-file').click();
-}
-
-function open_tired() {
-  document.getElementById('tired-file').click();
-}
