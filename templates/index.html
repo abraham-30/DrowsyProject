@@ -12,12 +12,16 @@
 <body draggable="false">
     <div id="menu">
         <h3 style="color:#000">Menu</h3>
-        <ul> 
-            <input type="file" name="" id='sleep-file' hidden>
-            <input type="file" name="" id='tired-file' hidden>
-            <li style="color:#000; padding:0.5em" id="sleep-ring" onclick="open_sleep()">Select Sleep Ringtone</a></li>
-            <li style="color:#000; padding:0.5em" id="tired-ring" onclick="open_tired()">Select Tired Ringtone</a></li>
-          </ul>
+        <ul style="border-radius:0 10px 10px 10px"> 
+            <label for="sleep-file" style="cursor:pointer">
+                <li style="color:#000; padding:0.5em" id="sleep-ring" aria-hidden="true">Select Sleep Ringtone</a></li>
+                <input type="file" id="sleep-file" style="display:none">
+            </label>
+            <label for="tired-file" style="cursor:pointer">
+                <li style="color:#000; padding:0.5em" id="tired-ring" aria-hidden="true">Select Tired Ringtone</a></li>
+                <input type="file" id="tired-file" style="display:none">
+            </label>
+        </ul>
     </div>
     <div id="body-wrapper">
         <main id="main">
@@ -120,8 +124,6 @@
       });
     
     $("#menu").on("click", function(e){
-      e.preventDefault();
-      
         if($(this).hasClass("open")) {
             $(this).removeClass("open");
             $(this).children("ul").slideUp("fast");
