@@ -13,13 +13,13 @@
     <div id="menu">
         <h3 style="color:#000">Menu</h3>
         <ul style="border-radius:0 10px 10px 10px"> 
-            <label for="sleep-file" style="cursor:pointer">
-                <li style="color:#000; padding:0.5em" id="sleep-ring" aria-hidden="true">Select Sleep Ringtone</a></li>
-                <input type="file" id="sleep-file" style="display:none">
+            <<label for="custom-sleep-file" style="cursor: pointer">
+                <li style="color: #000; padding: 0.5em" id="custom-sleep-ring" aria-hidden="true">Upload Custom Sleep Ringtone</a></li>
+                <input type="file" id="custom-sleep-file" style="display: none">
             </label>
-            <label for="tired-file" style="cursor:pointer">
-                <li style="color:#000; padding:0.5em" id="tired-ring" aria-hidden="true">Select Tired Ringtone</a></li>
-                <input type="file" id="tired-file" style="display:none">
+            <label for="custom-tired-file" style="cursor: pointer">
+                <li style="color: #000; padding: 0.5em" id="custom-tired-ring" aria-hidden="true">Upload Custom Tired Ringtone</a></li>
+                <input type="file" id="custom-tired-file" style="display: none">
             </label>
         </ul>
     </div>
@@ -131,6 +131,37 @@
             $(this).addClass("open");
             $(this).children("ul").slideDown("fast");
         }
+    });
+</script>
+<script type="text/javascript">
+    // ... (your existing JavaScript code)
+
+    // Add event listeners to the custom ringtone file inputs
+    const customSleepFileInput = document.getElementById('custom-sleep-file');
+    const customTiredFileInput = document.getElementById('custom-tired-file');
+
+    customSleepFileInput.addEventListener('change', () => {
+        const formData = new FormData();
+        formData.append('custom_sleep_ringtone', customSleepFileInput.files[0]);
+
+        fetch('/upload_custom_ringtone', {
+            method: 'POST',
+            body: formData,
+        }).then(() => {
+            alert('Custom sleep ringtone uploaded successfully!');
+        });
+    });
+
+    customTiredFileInput.addEventListener('change', () => {
+        const formData = new FormData();
+        formData.append('custom_tired_ringtone', customTiredFileInput.files[0]);
+
+        fetch('/upload_custom_ringtone', {
+            method: 'POST',
+            body: formData,
+        }).then(() => {
+            alert('Custom tired ringtone uploaded successfully!');
+        });
     });
 </script>
 </html>

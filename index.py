@@ -1,6 +1,6 @@
 # app.py
 
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, request, redirect
 import cv2 as cv
 import threading
 
@@ -17,9 +17,48 @@ app = Flask(__name__)
 camera_lock = threading.Lock()
 
 
+# @app.route("/")
+# def home():
+#     return render_template("index.html")
+
+# Function to check for custom ringtones
+def get_ringtone_paths():
+    if os.path.exists(CUSTOM_SLEEP_RINGTONE_PATH):
+        sleep_ringtone = CUSTOM_SLEEP_RINGTONE_PATH
+    else:
+        sleep_ringtone = DEFAULT_SLEEP_RINGTONE
+
+    if os.path.exists(CUSTOM_TIRED_RINGTONE_PATH):
+        tired_ringtone = CUSTOM_TIRED_RINGTONE_PATH
+    else:
+        tired_ringtone = DEFAULT_TIRED_RINGTONE
+
+    return sleep_ringtone, tired_ringtone
+
+@app.route("/upload_custom_ringtone", methods=["POST"])
+def upload_custom_ringtone():
+    if "custom_sleep_ringtone" in request.files:
+        custom_sleep_ringtone = request.files["custom_sleep_ringtone"]
+        if custom_sleep_ringtone.filename != "":
+            custom_sleep_ringtone.save(CUSTOM_SLEEP_RINGTONE_PATH)
+
+    if "custom_tired_ringtone" in request.files:
+        custom_tired_ringtone = request.files["custom_tired_ringtone"]
+        if custom_tired_ringtone.filename != "":
+            custom_tired_ringtone.save(CUSTOM_TIRED_RINGTONE_PATH)
+
+        # Automatically use the custom ringtone when it's uploaded
+        return redirect("/")
+
+    return redirect("/")
+
 @app.route("/")
 def home():
-    return render_template("index.html")
+    # Automatically set custom ringtones if available
+    sleep_ringtone, tired_ringtone = get_ringtone_paths()
+    
+    return render_template("index.html", sleep_ringtone=sleep_ringtone, tired_ringtone=tired_ringtone)
+
 
 
 # def __init__(self):
@@ -31,6 +70,13 @@ sleep_ringtone_path = (
 tired_ringtone_path = (
     "Tired.wav"  # Provide the correct path to tired.wav
 )
+# Define paths for default ringtones
+DEFAULT_SLEEP_RINGTONE = "static/sleep.wav"
+DEFAULT_TIRED_RINGTONE = "static/tired.wav"
+
+# Define paths for custom ringtones
+CUSTOM_SLEEP_RINGTONE_PATH = "custom_ringtones/sleep/sleep_custom.wav"
+CUSTOM_TIRED_RINGTONE_PATH = "custom_ringtones/tired/tired_custom.wav"
 
 
 def drowsiness_detection():
